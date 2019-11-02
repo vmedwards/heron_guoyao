@@ -14,9 +14,9 @@ pos_cur=NavSatFix()
 
 yaw_cur = 0.00
 yaw_des_old = 0.0
-course_desired = ([49.90001, 8.90000],
-	[49.90001, 8.90001],
-	[49.90000, 8.90001],
+course_desired = ([49.90050, 8.90000],
+	[49.90050, 8.90050],
+	[49.90000, 8.90050],
 	[49.90000, 8.90000],)
 i = 0
 kp=2
@@ -91,8 +91,8 @@ def control_publisher(event):
         yaw_error = 2*math.pi + yaw_error
 
     # controller for yaw_rate
-    #pub_msg.yaw_rate = kp*yaw_error + yaw_des_rate
-    pub_msg.yaw_rate = kp*yaw_error
+    pub_msg.yaw_rate = kp*yaw_error + yaw_des_rate
+    #pub_msg.yaw_rate = kp*yaw_error
     
     # if far away, thrusht is at base thrust level
     if( dist_err > 10 ):
