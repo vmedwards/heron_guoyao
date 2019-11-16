@@ -13,9 +13,13 @@ z = 1e-6+pi
 # y = 0
 # z = 0
 # get rotation matrix of Euler roll-pitch-yaw
-R = np.array([[cos(z)*cos(y), cos(z)*sin(y)*sin(x)-sin(z)*cos(x), sin(z)*sin(x)+cos(z)*sin(y)*cos(x)],
-              [sin(z)*cos(y), sin(z)*sin(y)*sin(x)+cos(z)*cos(x), -cos(z)*sin(x)+sin(z)*sin(y)*cos(x)],
-              [-sin(y), cos(y)*sin(x), cos(y)*cos(x)]])
+# R = np.array([[cos(z)*cos(y), cos(z)*sin(y)*sin(x)-sin(z)*cos(x), sin(z)*sin(x)+cos(z)*sin(y)*cos(x)],
+#               [sin(z)*cos(y), sin(z)*sin(y)*sin(x)+cos(z)*cos(x), -cos(z)*sin(x)+sin(z)*sin(y)*cos(x)],
+#               [-sin(y), cos(y)*sin(x), cos(y)*cos(x)]])
+
+R = np.array([[cos(y)*cos(z), -cos(y)*sin(z), sin(y)],
+              [cos(x)*sin(z) + cos(z)*sin(x)*sin(y), cos(x)*cos(z) - sin(x)*sin(y)*sin(z), -cos(y)*sin(x)],
+              [sin(x)*sin(z) - cos(x)*cos(z)*sin(y), cos(z)*sin(x) + cos(x)*sin(y)*sin(z),  cos(x)*cos(y)]])
 
 # define the matrix for calibration:
 # rotate around inertial frame y for 180 degree, pre-multiply
