@@ -6,9 +6,9 @@ This is a test script for rotation calibration for IMU on Heron
 import numpy as np
 from numpy import sin, cos, pi, arctan2, arcsin, arccos
 
-x = 1e-6
+x = 1e-6+pi
 y = 1e-6
-z = 1e-6
+z = 1e-6+pi
 # x = 0
 # y = 0
 # z = 0
@@ -47,12 +47,12 @@ if __name__ == '__main__':
     # print('Vout_orig', Vout_orig)
     # print('Vout_calibrated', Vout_calibrated)
 
-    print('y_c', y_c)
+    print('y_c', y_c, -R_calibrated[2,0])
 
-    print('x_c', x_c)
-    print('x_c2', x_c2)
-    print('x_c3', x_c3)
+    print('x_c arcsin', x_c, ' | ', R_calibrated[2,1]/cos(y_c))
+    print('x_c2 arccos', x_c2, ' | ', R_calibrated[2,2]/cos(y_c))
+    print('x_c3 arctan2', x_c3, ' | ', R_calibrated[2,1]/R_calibrated[2,2])
 
-    print('z_c', z_c)
-    print('z_c2', z_c2)
-    print('z_c3', z_c3)
+    print('z_c arcsin', z_c, ' | ', R_calibrated[1,0]/cos(y_c))
+    print('z_c2 arccos', z_c2, ' | ', R_calibrated[0,0]/cos(y_c))
+    print('z_c3 arctan2', z_c3, ' | ', R_calibrated[1,0], R_calibrated[0,0])
