@@ -41,32 +41,50 @@ pos_kp=30000
 
 def nav_comp(navsat_msg):
 	global pos_des, pos_kp, publ, yaw_cur, pos_cur, yaw_des,course_desired, i
-	pos_cur = navsat_msg
+
+        pos_cur = navsat_msg
 	pos_des.latitude = course_desired[i][0]
 	pos_des.longitude = course_desired[i][1]
-	yaw_des = math.atan2(pos_des.latitude - pos_cur.latitude, pos_des.longitude - pos_cur.longitude)
-	if (yaw_des < 0):
+
+        yaw_des = math.atan2(pos_des.latitude - pos_cur.latitude, pos_des.longitude - pos_cur.longitude)
+
+
+        if (yaw_des < 0):
 		yaw_des = yaw_des + 2 * math.pi
-	distance = math.sqrt((navsat_msg.latitude - pos_des.latitude)**2 + (navsat_msg.longitude - pos_des.longitude)**2)
+
+
+        distance = math.sqrt((navsat_msg.latitude - pos_des.latitude)**2 + (navsat_msg.longitude - pos_des.longitude)**2)
 	yaw_diff = yaw_des - yaw_cur
-	if(yaw_diff > math.pi):
+
+
+        if(yaw_diff > math.pi):
 		yaw_diff = 2 * math.pi - yaw_diff
-	publ.speed = pos_kp * distance * math.exp(-30*(yaw_diff))
+
+
+        publ.speed = pos_kp * distance * math.exp(-30*(yaw_diff))
 	# print(math.exp(-3*(yaw_des - yaw_cur)))
-	if(publ.speed > 1.4):
+
+        if(publ.speed > 1.4):
 		publ.speed = 1.4
-	publ.yaw = yaw_des
+
+
+        publ.yaw = yaw_des
 	course_publ=rospy.Publisher('/cmd_course', Course, queue_size=100)
-	if(distance < 0.1 and i == len(course_desired) - 1):
+
+
+        if(distance < 0.0001 and i == len(course_desired) - 1):
 		publ.yaw = 0
 		publ.speed = 0
 		course_publ.publish(publ)
 	else:
 		course_publ.publish(publ)
-	print(publ)
+
+        print(publ)
 	print('distance away {0}'.format(distance))
 	print('going to {0} {1} which is {2} point'.format(pos_des.latitude,pos_des.longitude,i+1))
-	if(distance < 0.0001 and (i < len(course_desired) - 1)):
+
+
+        if(distance < 0.0001 and (i < len(course_desired) - 1)):
 		i = i + 1
 
 	# print(yaw_cur)
