@@ -59,7 +59,10 @@ def nav_comp(navsat_msg):
 
         # Handling angle wrap 
         if(yaw_diff > math.pi):
-	        yaw_diff = 2 * math.pi - yaw_diff
+	        yaw_diff =  yaw_diff - 2 * math.pi
+        elif (yaw_diff < -math.pi):
+                yaw_diff = 2*math.pi + yaw_diff
+        
 
         print('yaw desired {}'.format(yaw_des))
         print('yaw current {}'.format(yaw_cur))
@@ -67,13 +70,14 @@ def nav_comp(navsat_msg):
 
         # This is what slows down the speed so that the robot can turn without major thrust
         publ.speed = pos_kp * distance * math.exp(-30*(yaw_diff))
-        print(math.exp(-3*(yaw_des - yaw_cur)))
+        print(math.exp(-30*(yaw_des - yaw_cur)))
 
         if(publ.speed > 1.4):
 	        publ.speed = 1.4
 
-
         publ.yaw = yaw_des
+        # XXX: LOOK AT THIS MESSAGE TYPE AND FIGURE OUT WHAT THE ANTICIPATED RANGE OF YAW SHOULD BE, something is worng
+        #     When we turn 2nd corner of square
         course_publ=rospy.Publisher('/cmd_course', Course, queue_size=100)
 
 

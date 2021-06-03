@@ -14,10 +14,19 @@ pos_cur=NavSatFix()
 
 yaw_cur = 0.00
 yaw_des_old = 0.0
-course_desired = ([49.90001, 8.90000],
-	[49.90001, 8.90001],
-	[49.90000, 8.90001],
-	[49.90000, 8.90000],)
+
+latitude = 49.900000001193085
+longitude = 8.900000001091586
+
+square_leg_length = 0.0001
+
+course_desired = ([latitude, longitude],
+                  [latitude + square_leg_length, longitude],
+                  [latitude + square_leg_length, longitude + square_leg_length],
+                  [latitude, longitude + square_leg_length],
+                  [latitude, longitude])
+
+
 i = 0
 kp=2
 wypt_dist_thresh = 2.0  # distance threshold to stop or switch to next way point
