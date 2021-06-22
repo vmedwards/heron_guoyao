@@ -10,6 +10,11 @@ from heron_msgs.msg import Helm
 from sensor_msgs.msg import NavSatFix
 from std_msgs.msg import Float32
 
+def convert_from_dms_to_dd(input_lat, input_lon):
+    dd_lat = input_lat[0] + input_lat[1] / 60.0 + input_lat[2] / 3600.0
+    dd_lon = input_lon[0] + input_lon[1] / 60.0 + input_lon[2] / 3600.0
+    return(dd_lat, dd_lon)
+
 pos_cur=NavSatFix()
 
 yaw_cur = 0.00
@@ -25,6 +30,18 @@ course_desired = ([latitude, longitude],
                   [latitude + square_leg_length, longitude + square_leg_length],
                   [latitude, longitude + square_leg_length],
                   [latitude, longitude])
+
+p1_lat, p1_lon = convert_from_dms_to_dd([39.0, 56.0, 38.71], [75, 11, 57.58])
+p2_lat, p2_lon = convert_from_dms_to_dd([39, 56, 38.71], [ 75, 11, 55.80])
+p2_lat, p2_lon = convert_from_dms_to_dd([39, 56, 39.69], [ 75, 11, 59.46])
+p2_lat, p2_lon = convert_from_dms_to_dd([39, 56, 36.72], [ 75, 12, 1.70])
+
+
+course_desired = ([p1_lat, -p1_lon], 
+[p2_lat, -p2_lon],
+[p3_lat, -p3_lon],
+[p4_lat, -p4_lon],
+[p1_lat, -p1_lon])
 
 
 i = 0
