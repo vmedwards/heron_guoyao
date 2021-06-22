@@ -31,10 +31,17 @@ course_desired = ([latitude, longitude],
                   [latitude, longitude + square_leg_length],
                   [latitude, longitude])
 
-p1_lat, p1_lon = convert_from_dms_to_dd([39.0, 56.0, 38.71], [75, 11, 57.58])
-p2_lat, p2_lon = convert_from_dms_to_dd([39, 56, 38.71], [ 75, 11, 55.80])
-p2_lat, p2_lon = convert_from_dms_to_dd([39, 56, 39.69], [ 75, 11, 59.46])
-p2_lat, p2_lon = convert_from_dms_to_dd([39, 56, 36.72], [ 75, 12, 1.70])
+# Big square
+p1_lat, p1_lon = convert_from_dms_to_dd([39.0, 56.0, 35.00], [ 75.0, 11.0, 57.58])
+p2_lat, p2_lon = convert_from_dms_to_dd([39.0, 56.0, 38.71], [ 75.0, 11.0, 55.80])
+p3_lat, p3_lon = convert_from_dms_to_dd([39.0, 56.0, 39.69], [ 75.0, 11.0, 59.46])
+p4_lat, p4_lon = convert_from_dms_to_dd([39.0, 56.0, 36.72], [ 75.0, 12.0, 1.70])
+
+# Small square
+p1_lat, p1_lon = convert_from_dms_to_dd([39.0, 56.0, 35.62], [ 75.0, 11.0, 58.11])
+p2_lat, p2_lon = convert_from_dms_to_dd([39.0, 56.0, 36.85], [ 75.0, 11.0, 57.23])
+p3_lat, p3_lon = convert_from_dms_to_dd([39.0, 56.0, 37.71], [ 75.0, 11.0, 59.25])
+p4_lat, p4_lon = convert_from_dms_to_dd([39.0, 56.0, 36.34], [ 75.0, 12.0, 0.27])
 
 
 course_desired = ([p1_lat, -p1_lon], 
@@ -43,6 +50,7 @@ course_desired = ([p1_lat, -p1_lon],
 [p4_lat, -p4_lon],
 [p1_lat, -p1_lon])
 
+print(course_desired)
 
 i = 0
 kp=2
@@ -86,7 +94,7 @@ def control_publisher(event):
     long_pub.publish(float(course_desired[i][1]))
     if (dist_err < wypt_dist_thresh) :
         # go to next way point if within distance threshold
-        if( i < len(course_desired)-1 ):
+        if( i < len(course_desired) - 1 ):
             i = i+1
             pos_des_lat = course_desired[i][0]
             pos_des_lon = course_desired[i][1]
