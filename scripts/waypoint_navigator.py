@@ -74,7 +74,6 @@ def yaw_callback(data_msg):
     	yaw_cur = yaw_cur + 2 * math.pi
     return
 
-
 def control_publisher(event):
     global yaw_cur, i, kp, pos_cur, yaw_des_old, course_desired, wypt_dist_thresh, cmd_dt, base_thrust, met_lat, met_lon
     pub_msg = Helm()
