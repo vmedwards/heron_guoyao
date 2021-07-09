@@ -75,6 +75,7 @@ def yaw_callback(data_msg):
     return
 
 def control_publisher(event):
+    " We need to make srue this message type works"
     global yaw_cur, i, kp, pos_cur, yaw_des_old, course_desired, wypt_dist_thresh, cmd_dt, base_thrust, met_lat, met_lon
     pub_msg = Helm()
     helm_pub = rospy.Publisher('/cmd_helm', Helm, queue_size=100)
@@ -149,6 +150,7 @@ def control_publisher(event):
 def course_publisher():
     global cmd_dt
 
+    # XXX: THESE WORK FOR SIM BUT ARE NOT THE SAME WITH THE REAL ROBOT
     rospy.init_node('wapt_control_publisher', anonymous=True)
     rospy.Subscriber("/navsat/fix", NavSatFix,nav_comp)
     
